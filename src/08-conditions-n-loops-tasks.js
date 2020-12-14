@@ -262,8 +262,16 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const res = String(ccn).split('').reverse().map((i, index) => {
+    if ((index + 1) % 2 === 0) {
+      if (i * 2 > 9) return i * 2 - 9;
+      return i * 2;
+    }
+    return +i;
+  })
+    .reduce((sum, i) => sum + i, 0);
+  return res % 10 === 0;
 }
 
 /**
